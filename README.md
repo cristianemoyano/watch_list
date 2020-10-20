@@ -2,6 +2,23 @@
 
 A watchlist using linked lists in Go.
 
+
+# Get started
+
+```
+git clone https://github.com/cristianemoyano/watch_list.git
+
+cd watch_list
+
+go build main.go
+
+./main [command options]
+
+or
+
+go run main.go [command options]
+```
+
 # Commands
 
 ```
