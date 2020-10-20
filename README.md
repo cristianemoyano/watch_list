@@ -24,7 +24,7 @@ go run main.go [command options]
 ```
 go run main.go help
 NAME:
-   Watchlist CLI - An example CLI for watchlist
+   wlist - Watchlist CLI implemented in Go using linked lists.
 
 USAGE:
    main [global options] command [command options] [arguments...]

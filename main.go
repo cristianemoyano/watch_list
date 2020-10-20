@@ -118,7 +118,7 @@ func main() {
 	app := &cli.App{
 		Name:     "wlist",
 		Version:  "1.0.0",
-		Usage:    "Watchlist CLI in Go using linked lists.",
+		Usage:    "Watchlist CLI implemented in Go using linked lists.",
 		Commands: commands,
 	}
 
