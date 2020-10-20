@@ -1,14 +1,13 @@
 /*
-Parte 1: Haciendo uso de los conceptos de la programación modular y lo
-aprendido en la unidad 2, realizar un programa que sirva para la
-administración de contenidos se desea ver en Netflix.
+Exercise:
 
-El programa debe funcionar como la “Watch list” que tiene la plataforma. Cada contenido
-(nodo) debe guardar el id, el nombre y el tipo (serie, película o documental).
-Usar una lista enlazada o árbol binario según preferencia del grupo. Funciones a realizar:
-Alta, baja y modificación de los elementos.
-El programa deberá tener un menú para realizar estas funciones. Puede ser realizado tanto
-en Go como en C.
+Develop a program to manage content that you want to watch like in Netflix.
+The program should works as the "Watch list" that the platform has.
+
+Each content (node) must save the id, the name and the type (series, film or documentary).
+
+Functions to build: Add, Remove and Change.
+The program must have a menu to perform these functions.
 */
 package watchlist
 
