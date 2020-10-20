@@ -92,9 +92,7 @@ func get_commands(watch **watchlist.ContentList) []*cli.Command {
 	}
 }
 
-func main() {
-
-	watch := &watchlist.ContentList{}
+func set_default_list(watch **watchlist.ContentList) {
 	monterInc := watchlist.Content{
 		ID:    1,
 		Title: "Monster Inc.",
@@ -110,11 +108,22 @@ func main() {
 		Title: "Todo sobre el asado",
 		Tipo:  watchlist.Documental,
 	}
-	watch.Add(monterInc)
-	watch.Add(friends)
-	watch.Add(asado)
+	(**watch).Add(monterInc)
+	(**watch).Add(friends)
+	(**watch).Add(asado)
+}
 
+func main() {
+	// Instantiate ContentList
+	watch := &watchlist.ContentList{}
+
+	// Set a default content list
+	set_default_list(&watch)
+
+	// Get the menu commands
 	commands := get_commands(&watch)
+
+	// Instantiate the main app
 	app := &cli.App{
 		Name:     "wlist",
 		Version:  "1.0.0",
