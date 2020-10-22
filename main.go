@@ -113,23 +113,26 @@ func set_default_list(watch **watchlist.ContentList) {
 	(**watch).Add(asado)
 }
 
-func main() {
-	// Instantiate ContentList
-	watch := &watchlist.ContentList{}
+// Instantiate ContentList
+var watch = &watchlist.ContentList{}
 
+// Instantiate the main app
+var app = &cli.App{}
+
+func init() {
 	// Set a default content list
 	set_default_list(&watch)
 
 	// Get the menu commands
 	commands := get_commands(&watch)
 
-	// Instantiate the main app
-	app := &cli.App{
-		Name:     "wlist",
-		Version:  "1.0.0",
-		Usage:    "Watchlist CLI implemented in Go using linked lists.",
-		Commands: commands,
-	}
+	app.Name = "wlist"
+	app.Version = "1.0.0"
+	app.Usage = "Watchlist CLI implemented in Go using linked lists."
+	app.Commands = commands
+}
+
+func main() {
 
 	err := app.Run(os.Args)
 	if err != nil {
