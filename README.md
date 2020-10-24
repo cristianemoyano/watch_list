@@ -2,6 +2,21 @@
 
 A watchlist using linked lists in Go.
 
+##### Table of Contents  
+
+- [Get started](#get-started)
+- [Commands](#commands)
+  * [Add](#add)
+  * [Select](#select)
+  * [Change](#change)
+  * [Remove](#remove)
+  * [List](#list)
+  * [Movies](#movies)
+  * [Help](#help)
+  * [Exit](#exit)
+
+<small><i><a href='http://ecotrust-canada.github.io/markdown-toc/'>Table of contents generated with markdown-toc</a></i></small>
+
 
 # Get started
 
