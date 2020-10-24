@@ -48,7 +48,9 @@ Welcome to:
 
 COMMANDS:
 
+   login       Login into the platform.                 | login username
    add         Add content to the watchlist by Name.    | add Name tipo
+   search      Search content                           | search Name
    select      Add content to the watchlist by ID.      | select id
    change      Change watchlist's content.              | change id Name tipo
    remove      Remove content by ID from the watchlist. | remove id
@@ -59,6 +61,27 @@ COMMANDS:
    exit        Finish program.                          | exit
 
 >
+```
+
+
+## Login
+
+```
+NAME:
+   login       Login into the platform.                 | login username
+
+USAGE:
+   > login Username
+```
+
+Example:
+
+```
+> login Joe
+
+#325515328916291879 - Joe
+
+---Welcome Joe !---
 ```
 
 ## Add
@@ -79,6 +102,24 @@ Example:
 #325436075143069991 - Live - type: pelicula
 
 ---Added by Name---
+```
+
+## Search
+
+```
+NAME:
+   search      Search content                           | search Name
+
+USAGE:
+   > search name
+```
+
+Example:
+
+```
+> search Friends
+
+#325515209210921255 - Friends - type: serie
 ```
 
 ## Select
