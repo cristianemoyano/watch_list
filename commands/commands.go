@@ -4,9 +4,12 @@ import (
 	"errors"
 	"fmt"
 	"log"
+	"os"
 	"strconv"
 
+	"github.com/cristianemoyano/watch_list/constants"
 	watchlist "github.com/cristianemoyano/watch_list/watch_list"
+	"github.com/fatih/color"
 	"github.com/sony/sonyflake"
 )
 
@@ -131,4 +134,17 @@ func Search(user **watchlist.User, movies **watchlist.ContentList, arguments []s
 	content := (**movies).SearchName(name)
 
 	content.Print()
+}
+
+func Help(logger *color.Color) {
+	logger.Println(constants.ListAvailableCmds)
+}
+
+func Exit(logger *color.Color, user **watchlist.User) {
+	logger.Println(constants.ExitMsg, (**user).Username)
+	os.Exit(0)
+}
+
+func Default(logger *color.Color, args []string) {
+	logger.Printf(constants.DefaultMsg, args[0])
 }

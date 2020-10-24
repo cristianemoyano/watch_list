@@ -148,11 +148,11 @@ func execInput(input string) error {
 		}()
 		commands.List(&user, &movies)
 	case "help":
-		msg.Println(constants.ListAvailableCmds)
+		commands.Help(msg)
 	case "exit":
-		os.Exit(0)
+		commands.Exit(msg, &user)
 	default:
-		red.Printf("Invalid command:  '%v' - type> help \n", args[0])
+		commands.Default(red, args)
 	}
 	return nil
 }

@@ -59,6 +59,9 @@ NAME:
 USAGE:
    login username
 `
+var ExitMsg = "Goodbye"
+
+var DefaultMsg = "Invalid command:  '%v' - type> help \n"
 
 var WelcomeMsg = "Welcome to: "
 
