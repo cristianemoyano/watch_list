@@ -23,28 +23,22 @@ func GenerateID() uint64 {
 	}
 	return id
 }
-
-func Add(user **watchlist.User, watch **watchlist.ContentList, arguments []string) {
+func is_authenticated(user **watchlist.User) {
 	if (**user).Username == "" {
 		panic(errors.New("You must to be logged in."))
 	}
+}
+
+func Add(user **watchlist.User, watch **watchlist.ContentList, arguments []string) {
+	is_authenticated(user)
 
 	name := arguments[1]
-	tipoSelected := arguments[2]
+	categorySelected := arguments[2]
 
-	tipo := watchlist.Pelicula
-	switch tipoSelected {
-	case "pelicula":
-		tipo = watchlist.Pelicula
-	case "serie":
-		tipo = watchlist.Serie
-	case "documental":
-		tipo = watchlist.Documental
-	}
 	newContent := watchlist.Content{
 		ID:    GenerateID(),
 		Title: name,
-		Tipo:  tipo,
+		Tipo:  watchlist.GetCategory(categorySelected),
 	}
 	(**watch).Add(newContent)
 	(**watch).Print()
@@ -60,10 +54,7 @@ func Login(user **watchlist.User, arguments []string) {
 }
 
 func Select(user **watchlist.User, watch **watchlist.ContentList, movies **watchlist.ContentList, arguments []string) {
-	if (**user).Username == "" {
-		panic(errors.New("You must to be logged in."))
-	}
-
+	is_authenticated(user)
 	id, _ := strconv.ParseUint(arguments[1], 10, 64)
 
 	content := (**movies).Search(id)
@@ -79,9 +70,7 @@ func Select(user **watchlist.User, watch **watchlist.ContentList, movies **watch
 }
 
 func Change(user **watchlist.User, watch **watchlist.ContentList, arguments []string) {
-	if (**user).Username == "" {
-		panic(errors.New("You must to be logged in."))
-	}
+	is_authenticated(user)
 
 	id, _ := strconv.ParseUint(arguments[1], 10, 64)
 	name := arguments[2]
@@ -107,9 +96,7 @@ func Change(user **watchlist.User, watch **watchlist.ContentList, arguments []st
 }
 
 func Remove(user **watchlist.User, watch **watchlist.ContentList, arguments []string) {
-	if (**user).Username == "" {
-		panic(errors.New("You must to be logged in."))
-	}
+	is_authenticated(user)
 
 	id, _ := strconv.ParseUint(arguments[1], 10, 64)
 	fmt.Printf("ID to remove: %v \n", id)
@@ -119,30 +106,41 @@ func Remove(user **watchlist.User, watch **watchlist.ContentList, arguments []st
 }
 
 func List(user **watchlist.User, watch **watchlist.ContentList) {
-	if (**user).Username == "" {
-		panic(errors.New("You must to be logged in."))
-	}
+	is_authenticated(user)
 	(**watch).Print()
 }
 
-func Search(user **watchlist.User, movies **watchlist.ContentList, arguments []string) {
-	if (**user).Username == "" {
-		panic(errors.New("You must to be logged in."))
-	}
+func Home(logger *color.Color, user **watchlist.User, movies **watchlist.ContentList) {
+	is_authenticated(user)
 
-	name := arguments[1]
-	(**movies).SearchAdvanced(name)
+	logger.Println("\n Movies")
+	(**movies).SearchAdvanced("pelicula")
+
+	logger.Println("\n Series")
+	(**movies).SearchAdvanced("serie")
+
+	logger.Println("\n Documentaries")
+	(**movies).SearchAdvanced("documental")
+}
+
+func Search(user **watchlist.User, movies **watchlist.ContentList, arguments []string) {
+	is_authenticated(user)
+	search := arguments[1]
+	(**movies).SearchAdvanced(search)
 }
 
 func Help(logger *color.Color) {
+	// No authenticated command
 	logger.Println(constants.ListAvailableCmds)
 }
 
 func Exit(logger *color.Color, user **watchlist.User) {
+	// No authenticated command
 	logger.Println(constants.ExitMsg, (**user).Username)
 	os.Exit(0)
 }
 
 func Default(logger *color.Color, args []string) {
+	// No authenticated command
 	logger.Printf(constants.DefaultMsg, args[0])
 }

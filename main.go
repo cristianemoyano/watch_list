@@ -168,14 +168,14 @@ func execInput(input string) error {
 			}
 		}()
 		commands.List(&user, &watch)
-	case "movies":
+	case "home":
 		defer func() {
 			if err := recover(); err != nil {
 				red.Println("Error:", err)
-				msg.Println(constants.MoviesUsage)
+				msg.Println(constants.HomeUsage)
 			}
 		}()
-		commands.List(&user, &movies)
+		commands.Home(msg, &user, &movies)
 	case "help":
 		commands.Help(msg)
 	case "exit":

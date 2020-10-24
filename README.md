@@ -11,7 +11,7 @@ A watchlist using linked lists in Go.
   * [Change](#change)
   * [Remove](#remove)
   * [List](#list)
-  * [Movies](#movies)
+  * [Home](#home)
   * [Help](#help)
   * [Exit](#exit)
 
@@ -50,12 +50,12 @@ COMMANDS:
 
    login       Login into the platform.                 | login username
    add         Add content to the watchlist by Name.    | add Name tipo
-   search      Search content                           | search Name
+   search      Advanced search content                  | search <content's name / category >
    select      Add content to the watchlist by ID.      | select id
    change      Change watchlist's content.              | change id Name tipo
    remove      Remove content by ID from the watchlist. | remove id
    list        List watchlist's content.                | list
-   movies      List movies's content.                   | movies
+   home        List movies, series and documentaries.   | home
 
    help        List available commands.                 | help
    exit        Finish program.                          | exit
@@ -108,10 +108,10 @@ Example:
 
 ```
 NAME:
-   search      Search content                           | search Name
+   search      Advanced search content                  | search <content's name / category >
 
 USAGE:
-   > search name
+   > search <content's name / category >
 ```
 
 Example:
@@ -120,6 +120,12 @@ Example:
 > search Friends
 
 #325515209210921255 - Friends - type: serie
+
+> search serie
+
+#325561948387344679 - Friends - type: serie
+#325561948387410215 - The Big Bang Theory - type: serie
+#325561948387475751 - Mr. Robot - type: serie
 ```
 
 ## Select
@@ -216,24 +222,33 @@ Example:
 #325436061184491815 - Friends - type: serie
 ```
 
-## Movies
+## Home
 
 ```
 NAME:
-   movies      List movies's content.                   | movies
+   home        List movies, series and documentaries.   | home
 
 USAGE:
-   movies
+   home
 ```
 
 Example:
 
 ```
-> movies
+> home
 
-#325437058388590887 - Monster Inc. - type: pelicula
-#325437058388656423 - Friends - type: serie
-#325437058388721959 - Todo sobre el asado - type: documental
+ Movies
+#325561948387148071 - Monster Inc. - type: pelicula
+#325561948387213607 - Lord of the Rings - type: pelicula
+#325561948387279143 - Rocky - type: pelicula
+
+ Series
+#325561948387344679 - Friends - type: serie
+#325561948387410215 - The Big Bang Theory - type: serie
+#325561948387475751 - Mr. Robot - type: serie
+
+ Documentaries
+#325561948387541287 - Todo sobre el asado - type: documental
 ```
 
 ## Help

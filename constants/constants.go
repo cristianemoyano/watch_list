@@ -44,20 +44,20 @@ USAGE:
    list
 `
 
-var MoviesUsage = `
+var HomeUsage = `
 NAME:
-   movies - List movies, series and documentaries.
+   home - List movies, series and documentaries.
 
 USAGE:
-   movies
+   home
 `
 
 var SearchUsage = `
 NAME:
-   search - Search content
+   search - Advanced search content
 
 USAGE:
-   search name
+   search <content's name / category >
 `
 
 var LoginUsage = `
@@ -80,12 +80,12 @@ COMMANDS:
 
    login       Login into the platform.                 | login username
    add         Add content to the watchlist by Name.    | add Name tipo
-   search      Search content                           | search Name
+   search      Advanced search content                  | search <content's name / category >
    select      Add content to the watchlist by ID.      | select id
    change      Change watchlist's content.              | change id Name tipo
    remove      Remove content by ID from the watchlist. | remove id
    list        List watchlist's content.                | list
-   movies      List movies, series and documentaries.   | movies
+   home        List movies, series and documentaries.   | home
 
    help        List available commands.                 | help
    exit        Finish program.                          | exit
