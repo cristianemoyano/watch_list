@@ -28,12 +28,38 @@ const (
 	Serie ContentType = "serie"
 )
 
+// User struct
+type User struct {
+	ID       uint64
+	Username string
+}
+
+// Login User
+func (u *User) Login(username string, id uint64) {
+	u.Username = username
+	u.ID = id
+}
+
+// Print User
+func (u *User) Print() {
+	fmt.Printf("#%v - %v \n", u.ID, u.Username)
+}
+
 // Content struct
 type Content struct {
 	ID    uint64
 	Title string
 	Tipo  ContentType
 	next  *Content
+}
+
+// Print Content
+func (n *Content) Print() {
+	if n.Title == "" {
+		panic(errors.New("Content is empty"))
+	}
+
+	fmt.Printf("#%v - %v - type: %v\n", n.ID, n.Title, n.Tipo)
 }
 
 // ContentList struct

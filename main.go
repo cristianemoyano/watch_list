@@ -15,11 +15,17 @@ import (
 var watch = &watchlist.ContentList{}
 var movies = &watchlist.ContentList{}
 
+// User
+var user = &watchlist.User{
+	ID:       0,
+	Username: "",
+}
+
 // Loggers
 var red = color.New(color.FgRed)
 var msg = color.New(color.FgCyan).Add(color.Bold)
 
-func set_movies(movies **watchlist.ContentList) {
+func set_content(movies **watchlist.ContentList) {
 	monterInc := watchlist.Content{
 		ID:    commands.GenerateID(),
 		Title: "Monster Inc.",
@@ -46,7 +52,7 @@ func init() {
 	constants.WelcomeFigure.Print()
 	color.Cyan(constants.ListAvailableCmds)
 	// Set movies
-	set_movies(&movies)
+	set_content(&movies)
 }
 
 func main() {
@@ -77,6 +83,14 @@ func execInput(input string) error {
 
 	// Check for built-in commands.
 	switch args[0] {
+	case "login":
+		defer func() {
+			if err := recover(); err != nil {
+				red.Println("Error:", err)
+				msg.Println(constants.LoginUsage)
+			}
+		}()
+		commands.Login(&user, args)
 	case "add":
 		defer func() {
 			if err := recover(); err != nil {
@@ -84,7 +98,7 @@ func execInput(input string) error {
 				msg.Println(constants.AddUsage)
 			}
 		}()
-		commands.Add(&watch, args)
+		commands.Add(&user, &watch, args)
 	case "select":
 		defer func() {
 			if err := recover(); err != nil {
@@ -92,7 +106,15 @@ func execInput(input string) error {
 				msg.Println(constants.SelectUsage)
 			}
 		}()
-		commands.Select(&watch, &movies, args)
+		commands.Select(&user, &watch, &movies, args)
+	case "search":
+		defer func() {
+			if err := recover(); err != nil {
+				red.Println("Error:", err)
+				msg.Println(constants.SearchUsage)
+			}
+		}()
+		commands.Search(&user, &movies, args)
 	case "change":
 		defer func() {
 			if err := recover(); err != nil {
@@ -100,7 +122,7 @@ func execInput(input string) error {
 				msg.Println(constants.ChangeUsage)
 			}
 		}()
-		commands.Change(&watch, args)
+		commands.Change(&user, &watch, args)
 	case "remove":
 		defer func() {
 			if err := recover(); err != nil {
@@ -108,7 +130,7 @@ func execInput(input string) error {
 				msg.Println(constants.RemoveUsage)
 			}
 		}()
-		commands.Remove(&watch, args)
+		commands.Remove(&user, &watch, args)
 	case "list":
 		defer func() {
 			if err := recover(); err != nil {
@@ -116,7 +138,7 @@ func execInput(input string) error {
 				msg.Println(constants.ListUsage)
 			}
 		}()
-		commands.List(&watch)
+		commands.List(&user, &watch)
 	case "movies":
 		defer func() {
 			if err := recover(); err != nil {
@@ -124,7 +146,7 @@ func execInput(input string) error {
 				msg.Println(constants.ListUsage)
 			}
 		}()
-		commands.List(&movies)
+		commands.List(&user, &movies)
 	case "help":
 		msg.Println(constants.ListAvailableCmds)
 	case "exit":

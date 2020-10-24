@@ -1,6 +1,7 @@
 package commands
 
 import (
+	"errors"
 	"fmt"
 	"log"
 	"strconv"
@@ -20,7 +21,11 @@ func GenerateID() uint64 {
 	return id
 }
 
-func Add(watch **watchlist.ContentList, arguments []string) {
+func Add(user **watchlist.User, watch **watchlist.ContentList, arguments []string) {
+	if (**user).Username == "" {
+		panic(errors.New("You must to be logged in."))
+	}
+
 	name := arguments[1]
 	tipoSelected := arguments[2]
 
@@ -43,7 +48,19 @@ func Add(watch **watchlist.ContentList, arguments []string) {
 	fmt.Printf("---Added by Name---\n")
 }
 
-func Select(watch **watchlist.ContentList, movies **watchlist.ContentList, arguments []string) {
+func Login(user **watchlist.User, arguments []string) {
+	username := arguments[1]
+	id := GenerateID()
+	(**user).Login(username, id)
+	(**user).Print()
+	fmt.Printf("---Welcome %v !---\n", username)
+}
+
+func Select(user **watchlist.User, watch **watchlist.ContentList, movies **watchlist.ContentList, arguments []string) {
+	if (**user).Username == "" {
+		panic(errors.New("You must to be logged in."))
+	}
+
 	id, _ := strconv.ParseUint(arguments[1], 10, 64)
 
 	content := (**movies).Search(id)
@@ -58,7 +75,11 @@ func Select(watch **watchlist.ContentList, movies **watchlist.ContentList, argum
 	fmt.Printf("---Added by ID---\n")
 }
 
-func Change(watch **watchlist.ContentList, arguments []string) {
+func Change(user **watchlist.User, watch **watchlist.ContentList, arguments []string) {
+	if (**user).Username == "" {
+		panic(errors.New("You must to be logged in."))
+	}
+
 	id, _ := strconv.ParseUint(arguments[1], 10, 64)
 	name := arguments[2]
 	tipoSelected := arguments[3]
@@ -82,7 +103,11 @@ func Change(watch **watchlist.ContentList, arguments []string) {
 	fmt.Printf("---Changed---\n")
 }
 
-func Remove(watch **watchlist.ContentList, arguments []string) {
+func Remove(user **watchlist.User, watch **watchlist.ContentList, arguments []string) {
+	if (**user).Username == "" {
+		panic(errors.New("You must to be logged in."))
+	}
+
 	id, _ := strconv.ParseUint(arguments[1], 10, 64)
 	fmt.Printf("ID to remove: %v \n", id)
 	(**watch).Remove(id)
@@ -90,6 +115,20 @@ func Remove(watch **watchlist.ContentList, arguments []string) {
 	fmt.Printf("---Removed---\n")
 }
 
-func List(watch **watchlist.ContentList) {
+func List(user **watchlist.User, watch **watchlist.ContentList) {
+	if (**user).Username == "" {
+		panic(errors.New("You must to be logged in."))
+	}
 	(**watch).Print()
+}
+
+func Search(user **watchlist.User, movies **watchlist.ContentList, arguments []string) {
+	if (**user).Username == "" {
+		panic(errors.New("You must to be logged in."))
+	}
+
+	name := arguments[1]
+	content := (**movies).SearchName(name)
+
+	content.Print()
 }

@@ -44,6 +44,22 @@ USAGE:
    list
 `
 
+var SearchUsage = `
+NAME:
+   search - Search content
+
+USAGE:
+   search name
+`
+
+var LoginUsage = `
+NAME:
+   login - Login into the platform.
+
+USAGE:
+   login username
+`
+
 var WelcomeMsg = "Welcome to: "
 
 var WelcomeFigure = figure.NewFigure("Watchlist CLI", "ogre", true)
@@ -51,7 +67,9 @@ var WelcomeFigure = figure.NewFigure("Watchlist CLI", "ogre", true)
 var ListAvailableCmds = `
 COMMANDS:
 
+   login       Login into the platform.                 | login username
    add         Add content to the watchlist by Name.    | add Name tipo
+   search      Search content                           | search Name
    select      Add content to the watchlist by ID.      | select id
    change      Change watchlist's content.              | change id Name tipo
    remove      Remove content by ID from the watchlist. | remove id
