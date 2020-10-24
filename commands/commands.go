@@ -131,9 +131,7 @@ func Search(user **watchlist.User, movies **watchlist.ContentList, arguments []s
 	}
 
 	name := arguments[1]
-	content := (**movies).SearchName(name)
-
-	content.Print()
+	(**movies).SearchAdvanced(name)
 }
 
 func Help(logger *color.Color) {

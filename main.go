@@ -26,23 +26,52 @@ var red = color.New(color.FgRed)
 var msg = color.New(color.FgCyan).Add(color.Bold)
 
 func set_content(movies **watchlist.ContentList) {
+	// Movies
 	monterInc := watchlist.Content{
 		ID:    commands.GenerateID(),
 		Title: "Monster Inc.",
 		Tipo:  watchlist.Pelicula,
 	}
+	lordOfTheRings := watchlist.Content{
+		ID:    commands.GenerateID(),
+		Title: "Lord of the Rings",
+		Tipo:  watchlist.Pelicula,
+	}
+	rocky := watchlist.Content{
+		ID:    commands.GenerateID(),
+		Title: "Rocky",
+		Tipo:  watchlist.Pelicula,
+	}
+
+	// Series
 	friends := watchlist.Content{
 		ID:    commands.GenerateID(),
 		Title: "Friends",
 		Tipo:  watchlist.Serie,
 	}
+	bigbang := watchlist.Content{
+		ID:    commands.GenerateID(),
+		Title: "The Big Bang Theory",
+		Tipo:  watchlist.Serie,
+	}
+	mrRobot := watchlist.Content{
+		ID:    commands.GenerateID(),
+		Title: "Mr. Robot",
+		Tipo:  watchlist.Serie,
+	}
+
+	// Documentaries
 	asado := watchlist.Content{
 		ID:    commands.GenerateID(),
 		Title: "Todo sobre el asado",
 		Tipo:  watchlist.Documental,
 	}
 	(**movies).Add(monterInc)
+	(**movies).Add(lordOfTheRings)
+	(**movies).Add(rocky)
 	(**movies).Add(friends)
+	(**movies).Add(bigbang)
+	(**movies).Add(mrRobot)
 	(**movies).Add(asado)
 }
 
@@ -143,7 +172,7 @@ func execInput(input string) error {
 		defer func() {
 			if err := recover(); err != nil {
 				red.Println("Error:", err)
-				msg.Println(constants.ListUsage)
+				msg.Println(constants.MoviesUsage)
 			}
 		}()
 		commands.List(&user, &movies)

@@ -14,6 +14,7 @@ package watchlist
 import (
 	"errors"
 	"fmt"
+	"strings"
 )
 
 // ContentType Enum
@@ -66,6 +67,31 @@ func (n *Content) Print() {
 type ContentList struct {
 	Length int
 	start  *Content
+}
+
+func IsCategory(category string) bool {
+	switch category {
+	case
+		"documental",
+		"serie",
+		"pelicula":
+		return true
+	}
+	return false
+}
+
+func GetCategory(category string) ContentType {
+	cat := strings.ToLower(category)
+	switch cat {
+	case "documental":
+		return Documental
+	case "serie":
+		return Serie
+	case "pelicula":
+		return Pelicula
+	default:
+		return ""
+	}
 }
 
 // Add method
@@ -160,7 +186,7 @@ func (n *ContentList) SearchName(title string) *Content {
 	}
 	currentContent := n.start
 	for {
-		if currentContent.Title == title {
+		if strings.Contains(strings.ToUpper(currentContent.Title), strings.ToUpper(title)) {
 			// fmt.Printf("#%v - %v - type: %v\n", currentContent.ID, currentContent.Title, currentContent.Tipo)
 			return currentContent
 		}
@@ -169,7 +195,49 @@ func (n *ContentList) SearchName(title string) *Content {
 		}
 		currentContent = currentContent.next
 	}
-	return currentContent
+	return nil
+}
+
+// Search method by Category
+func (n *ContentList) SearchCategory(category string) {
+	if n.Length == 0 {
+		panic(errors.New("Content list is empty"))
+	}
+	currentContent := n.start
+	for {
+		if currentContent.Tipo == GetCategory(category) {
+			currentContent.Print()
+		}
+		if currentContent.next == nil {
+			break
+		}
+		currentContent = currentContent.next
+	}
+}
+
+// Search by category or title
+func (n *ContentList) SearchAdvanced(search string) {
+	if n.Length == 0 {
+		panic(errors.New("Content list is empty"))
+	}
+	currentContent := n.start
+	saved := &Content{}
+	if IsCategory(search) {
+		n.SearchCategory(search)
+	} else {
+		for {
+			result := n.SearchName(search)
+			if result != nil && result.ID != saved.ID {
+				saved = result
+				result.Print()
+			}
+			if currentContent.next == nil {
+				break
+			}
+			currentContent = currentContent.next
+		}
+	}
+
 }
 
 func demo() {

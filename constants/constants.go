@@ -44,6 +44,14 @@ USAGE:
    list
 `
 
+var MoviesUsage = `
+NAME:
+   movies - List movies, series and documentaries.
+
+USAGE:
+   movies
+`
+
 var SearchUsage = `
 NAME:
    search - Search content
@@ -77,8 +85,8 @@ COMMANDS:
    change      Change watchlist's content.              | change id Name tipo
    remove      Remove content by ID from the watchlist. | remove id
    list        List watchlist's content.                | list
-   movies      List movies's content.                   | movies
-   
+   movies      List movies, series and documentaries.   | movies
+
    help        List available commands.                 | help
    exit        Finish program.                          | exit
 `
