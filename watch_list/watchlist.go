@@ -30,7 +30,7 @@ const (
 
 // Content struct
 type Content struct {
-	ID    int
+	ID    uint64
 	Title string
 	Tipo  ContentType
 	next  *Content
@@ -44,6 +44,12 @@ type ContentList struct {
 
 // Add method
 func (n *ContentList) Add(newContent Content) {
+	existing := n.SearchName(newContent.Title)
+
+	if existing != nil && n.Length > 0 && existing.Title == newContent.Title {
+		panic(errors.New("Content is already on the list."))
+	}
+
 	if n.Length == 0 {
 		n.start = &newContent
 	} else {
@@ -57,7 +63,7 @@ func (n *ContentList) Add(newContent Content) {
 }
 
 // Remove method
-func (n *ContentList) Remove(id int) {
+func (n *ContentList) Remove(id uint64) {
 	if n.Length == 0 {
 		panic(errors.New("Content list is empty"))
 	}
@@ -79,7 +85,7 @@ func (n *ContentList) Remove(id int) {
 }
 
 // Change method
-func (n *ContentList) Change(id int, newContent Content) {
+func (n *ContentList) Change(id uint64, newContent Content) {
 	if n.Length == 0 {
 		panic(errors.New("Content list is empty"))
 	}
@@ -102,15 +108,34 @@ func (n *ContentList) Print() {
 	}
 }
 
-// Search method
-func (n *ContentList) Search(id int) *Content {
+// Search method by Id
+func (n *ContentList) Search(id uint64) *Content {
 	if n.Length == 0 {
 		panic(errors.New("Content list is empty"))
 	}
 	currentContent := n.start
 	for {
 		if currentContent.ID == id {
-			fmt.Printf("#%v - %v - type: %v\n", currentContent.ID, currentContent.Title, currentContent.Tipo)
+			// fmt.Printf("#%v - %v - type: %v\n", currentContent.ID, currentContent.Title, currentContent.Tipo)
+			return currentContent
+		}
+		if currentContent.next == nil {
+			break
+		}
+		currentContent = currentContent.next
+	}
+	return currentContent
+}
+
+// Search method by Name
+func (n *ContentList) SearchName(title string) *Content {
+	if n.Length == 0 {
+		return nil
+	}
+	currentContent := n.start
+	for {
+		if currentContent.Title == title {
+			// fmt.Printf("#%v - %v - type: %v\n", currentContent.ID, currentContent.Title, currentContent.Tipo)
 			return currentContent
 		}
 		if currentContent.next == nil {
