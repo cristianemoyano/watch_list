@@ -11,7 +11,7 @@ import (
 	"github.com/fatih/color"
 )
 
-// Instantiate ContentList
+// Instantiate ContentLists
 var watch = &watchlist.ContentList{}
 var movies = &watchlist.ContentList{}
 
@@ -19,7 +19,7 @@ var movies = &watchlist.ContentList{}
 var red = color.New(color.FgRed)
 var msg = color.New(color.FgCyan).Add(color.Bold)
 
-func set_default_list(watch **watchlist.ContentList) {
+func set_movies(movies **watchlist.ContentList) {
 	monterInc := watchlist.Content{
 		ID:    commands.GenerateID(),
 		Title: "Monster Inc.",
@@ -35,9 +35,9 @@ func set_default_list(watch **watchlist.ContentList) {
 		Title: "Todo sobre el asado",
 		Tipo:  watchlist.Documental,
 	}
-	(**watch).Add(monterInc)
-	(**watch).Add(friends)
-	(**watch).Add(asado)
+	(**movies).Add(monterInc)
+	(**movies).Add(friends)
+	(**movies).Add(asado)
 }
 
 func init() {
@@ -45,8 +45,8 @@ func init() {
 	color.Cyan(constants.WelcomeMsg)
 	constants.WelcomeFigure.Print()
 	color.Cyan(constants.ListAvailableCmds)
-	// Set a default content list
-	set_default_list(&movies)
+	// Set movies
+	set_movies(&movies)
 }
 
 func main() {
