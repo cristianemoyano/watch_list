@@ -160,6 +160,26 @@ Example:
 #325436061184491815 - Friends - type: serie
 ```
 
+## Movies
+
+```
+NAME:
+   movies      List movies's content.                   | movies
+
+USAGE:
+   movies
+```
+
+Example:
+
+```
+> movies
+
+#325437058388590887 - Monster Inc. - type: pelicula
+#325437058388656423 - Friends - type: serie
+#325437058388721959 - Todo sobre el asado - type: documental
+```
+
 ## Help
 
 ```
