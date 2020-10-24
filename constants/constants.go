@@ -46,7 +46,7 @@ USAGE:
 
 var WelcomeMsg = "Welcome to: "
 
-var WelcomeFigure = figure.NewFigure("Watchlist", "ogre", true)
+var WelcomeFigure = figure.NewFigure("Watchlist CLI", "ogre", true)
 
 var ListAvailableCmds = `
 COMMANDS:

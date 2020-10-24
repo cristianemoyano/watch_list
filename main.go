@@ -2,19 +2,22 @@ package main
 
 import (
 	"bufio"
-	"fmt"
-	"log"
 	"os"
 	"strings"
 
 	commands "github.com/cristianemoyano/watch_list/commands"
 	constants "github.com/cristianemoyano/watch_list/constants"
 	watchlist "github.com/cristianemoyano/watch_list/watch_list"
+	"github.com/fatih/color"
 )
 
 // Instantiate ContentList
 var watch = &watchlist.ContentList{}
 var movies = &watchlist.ContentList{}
+
+// Loggers
+var red = color.New(color.FgRed)
+var msg = color.New(color.FgCyan).Add(color.Bold)
 
 func set_default_list(watch **watchlist.ContentList) {
 	monterInc := watchlist.Content{
@@ -39,9 +42,9 @@ func set_default_list(watch **watchlist.ContentList) {
 
 func init() {
 	// Welcome msg
-	fmt.Println(constants.WelcomeMsg)
+	color.Cyan(constants.WelcomeMsg)
 	constants.WelcomeFigure.Print()
-	fmt.Println(constants.ListAvailableCmds)
+	color.Cyan(constants.ListAvailableCmds)
 	// Set a default content list
 	set_default_list(&movies)
 }
@@ -50,16 +53,17 @@ func main() {
 
 	reader := bufio.NewReader(os.Stdin)
 	for {
-		fmt.Print("> ")
+		c := color.New(color.FgCyan)
+		c.Print("> ")
 		// Read the keyboad input.
 		input, err := reader.ReadString('\n')
 		if err := recover(); err != nil {
-			fmt.Fprintln(os.Stderr, err)
+			red.Fprintln(os.Stderr, err)
 		}
 
 		// Handle the execution of the input.
 		if err = execInput(input); err != nil {
-			fmt.Fprintln(os.Stderr, err)
+			red.Fprintln(os.Stderr, err)
 		}
 	}
 }
@@ -76,57 +80,57 @@ func execInput(input string) error {
 	case "add":
 		defer func() {
 			if err := recover(); err != nil {
-				log.Println("Error:", err)
-				log.Println(constants.AddUsage)
+				red.Println("Error:", err)
+				msg.Println(constants.AddUsage)
 			}
 		}()
 		commands.Add(&watch, args)
 	case "select":
 		defer func() {
 			if err := recover(); err != nil {
-				log.Println("Error:", err)
-				log.Println(constants.SelectUsage)
+				red.Println("Error:", err)
+				msg.Println(constants.SelectUsage)
 			}
 		}()
 		commands.Select(&watch, &movies, args)
 	case "change":
 		defer func() {
 			if err := recover(); err != nil {
-				log.Println("Error:", err)
-				log.Println(constants.ChangeUsage)
+				red.Println("Error:", err)
+				msg.Println(constants.ChangeUsage)
 			}
 		}()
 		commands.Change(&watch, args)
 	case "remove":
 		defer func() {
 			if err := recover(); err != nil {
-				log.Println("Error:", err)
-				log.Println(constants.RemoveUsage)
+				red.Println("Error:", err)
+				msg.Println(constants.RemoveUsage)
 			}
 		}()
 		commands.Remove(&watch, args)
 	case "list":
 		defer func() {
 			if err := recover(); err != nil {
-				log.Println("Error:", err)
-				log.Println(constants.ListUsage)
+				red.Println("Error:", err)
+				msg.Println(constants.ListUsage)
 			}
 		}()
 		commands.List(&watch)
 	case "movies":
 		defer func() {
 			if err := recover(); err != nil {
-				log.Println("Error:", err)
-				log.Println(constants.ListUsage)
+				red.Println("Error:", err)
+				msg.Println(constants.ListUsage)
 			}
 		}()
 		commands.List(&movies)
 	case "help":
-		fmt.Println(constants.ListAvailableCmds)
+		msg.Println(constants.ListAvailableCmds)
 	case "exit":
 		os.Exit(0)
 	default:
-		fmt.Printf("Invalid command:  '%v' - type> help \n", args[0])
+		red.Printf("Invalid command:  '%v' - type> help \n", args[0])
 	}
 	return nil
 }
